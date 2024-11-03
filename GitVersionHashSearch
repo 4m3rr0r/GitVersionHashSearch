@@ -1,0 +1,45 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+usage() {
+    echo -e "Usage: $0 -f <file_path> -h <search_pattern> [-s]"
+    echo -e "  -f    Specify the file path in the Git repository."
+    echo -e "  -h    Specify the pattern to search in the MD5 hash."
+    echo -e "  -s    (Optional) Show the full git show output for each matching commit hash."
+    exit 1
+}
+
+file_path=""
+search_pattern=""
+show_commit=false
+
+while getopts "f:h:s" opt; do
+    case $opt in
+        f) file_path=$OPTARG ;;
+        h) search_pattern=$OPTARG ;;
+        s) show_commit=true ;;
+        *) usage ;;
+    esac
+done
+
+if [[ -z $file_path || -z $search_pattern ]]; then
+    usage
+fi
+
+printf "\n${RED}%-40s %-32s${NC}\n" "Commit Hash" "MD5 Hash"
+printf "${RED}%-40s %-32s${NC}\n" "------------" "--------"
+
+for commit in $(git log --all --pretty=format:%H -- "$file_path"); do
+    md5_hash=$(git show "$commit:$file_path" | md5sum | awk '{print $1}')
+    if [[ "$md5_hash" == *"$search_pattern"* ]]; then
+        printf "${RED}%-40s %-32s${NC}\n" "$commit" "$md5_hash"
+        if $show_commit; then
+            echo -e "${RED}Full details for commit $commit:${NC}"
+            git show "$commit"
+            echo -e "\n--------------------------------------\n"
+        fi
+    fi
+done
+
