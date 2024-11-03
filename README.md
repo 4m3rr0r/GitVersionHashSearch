@@ -23,12 +23,12 @@ To use the script, follow these steps:
     ```
 2. Make the script executable:
    ```bash
-   chmod +x GitVersionHashSearch.sh
+   chmod +x GitVersionHashSearch
     ```
 3. Run the script with the required arguments:
 
     ```bash
-    ./GitVersionHashSearch.sh -f <file_path> -h <search_pattern> [-s]
+    ./GitVersionHashSearch -f <file_path> -h <search_pattern> [-s]
     ```
 
 ## Options
@@ -41,7 +41,7 @@ To use the script, follow these steps:
 To search for a specific MD5 hash pattern in `composer.json` and display full commit details:
 
     ```bash
-    ./GitVersionHashSearch.sh -f composer.json -h cb280572f9fe74315bd568b3a3bf2905 -s
+    ./GitVersionHashSearch -f composer.json -h cb280572f9fe74315bd568b3a3bf2905 -s
     ```
 #### output
 
