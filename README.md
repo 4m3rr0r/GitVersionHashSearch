@@ -38,14 +38,16 @@ To use the script, follow these steps:
 
 
 ## Example
-To search for a specific MD5 hash pattern in `composer.json` and display full commit details:
 
-   ```bash
-    ./GitVersionHashSearch -f composer.json -h cb280572f9fe74315bd568b3a3bf2905 -s
-    ```
-#### output
+To search for a specific MD5 hash pattern in `composer.json` and display full commit details, run the following command:
 
-  ```bash
+```bash
+./GitVersionHashSearch.sh -f composer.json -h cb280572f9fe74315bd568b3a3bf2905 -s
+```
+### output
+When you run the above command, you can expect output similar to this:
+
+```bash
 Commit Hash                              MD5 Hash                        
 ------------                             --------                        
 c85e9852dff1f380094a947ce3ab39e723458d2f cb280572f9fe74315bd568b3a3bf2905
@@ -72,3 +74,6 @@ index 94206ad0a5..30bdca120f 100755
          "ircmaxell/password-compat": "~1.0.4",
          "jbroadway/urlify": "1.1.0-stable",
 ```
+
+
+
